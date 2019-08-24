@@ -13,9 +13,6 @@ module.exports = function (app) {
     res.sendFile(path.join(__dirname, "../public/home.html"));
   });
 
-  app.get("/script.js", function (req, res) {
-    res.sendFile(path.join(__dirname, "../public/script.js"));
-  });
 
   app.get('*', function (req, res) {
     res.status(400).send('404: Page not Found');

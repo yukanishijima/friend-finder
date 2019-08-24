@@ -41,8 +41,10 @@ function compareScores(friends, newFriend) {
 };
 
 function displayMatch() {
+  $("#user-name").html(`${userName}'s best match!`);
   $("#match-name").html(`<p>${matchName}</p>`);
 
+  //display the photo if there is (because link to photo field is optional!)
   if (matchPhoto == "") {
     $("#match-name").append(`<div><i class="far fa-smile my-icon"></i></div>`);
   } else {
@@ -75,24 +77,19 @@ $("#submit").on("click", function (event) {
       scores: userScores
     };
 
-    //clear all fields
-    $("input[type='text']").val("");
-    $("input[type='radio']").attr("checked", false);
-
     let currentURL = window.location.origin;
-
-    $.post(currentURL + "/api/friends", newFriend)
-      .then(function (data) {
-        // console.log(data);   
-        $("#user-name").html(`${data.name}'s best match is...`);
-      });
+    $.post(currentURL + "/api/friends", newFriend);
 
     $.get(currentURL + "/api/friends")
       .then(function (data) {
-        // console.log(data);
+        console.log(data);
         compareScores(data, newFriend);
         displayMatch();
       });
+
+    //clear all fields
+    $("input[type='text']").val("");
+    $("input[type='radio']").attr("checked", false);
 
   };
 });
