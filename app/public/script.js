@@ -1,20 +1,16 @@
 let userName = "";
 let userPhoto = "";
-let score = "";
 let userScores = [];
 let matchName = "";
 let matchPhoto = "";
 
 function validateForm() {
-  userName = $("#yourName").val();
-  userPhoto = $("#yourPhoto").val();
-
+  let score = "";
   for (let i = 1; i < 11; i++) {
     score = $(`#q${i} input[type='radio']:checked`).val();
-    userScores.push(score);
   }
 
-  if (userName == "") {
+  if ($("#yourName").val() == "") {
     alert("Please enter your name!");
   } else if (typeof score == "undefined") {
     alert("Please answer all the questions!");
@@ -45,32 +41,43 @@ function compareScores(friends, newFriend) {
 };
 
 function displayMatch() {
-  $("#match-name").append(`<p>${matchName}</p>`);
+  $("#match-name").html(`<p>${matchName}</p>`);
 
   if (matchPhoto == "") {
     $("#match-name").append(`<div><i class="far fa-smile my-icon"></i></div>`);
   } else {
     $("#match-name").append(`<img src="${matchPhoto}" class="img-fluid my-image">`);
   }
+
+  //show the modal window
+  $("#resultModal").modal("show");
 };
+
+
 
 $("#submit").on("click", function (event) {
   event.preventDefault();
 
   if (validateForm()) {
 
-    //clear all fields
-    $("form input").val("");
-    $("form input[type='radio']").attr("checked", false);
+    userName = $("#yourName").val();
+    userPhoto = $("#yourPhoto").val();
 
-    //show the modal window
-    $("#resultModal").modal("show");
+    userScores = [];
+    for (let i = 1; i < 11; i++) {
+      let score = $(`#q${i} input[type='radio']:checked`).val();
+      userScores.push(score);
+    }
 
     let newFriend = {
       name: userName,
       photo: userPhoto,
       scores: userScores
     };
+
+    //clear all fields
+    $("input[type='text']").val("");
+    $("input[type='radio']").attr("checked", false);
 
     let currentURL = window.location.origin;
 
