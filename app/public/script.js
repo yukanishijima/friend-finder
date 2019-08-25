@@ -41,7 +41,7 @@ function compareScores(friends, newFriend) {
 };
 
 function displayMatch() {
-  $("#user-name").html(`${userName}'s best match!`);
+  $("#user-name").html(`${userName}'s best match is...`);
   $("#match-name").html(`<p>${matchName}</p>`);
 
   //display the photo if there is (because link to photo field is optional!)
