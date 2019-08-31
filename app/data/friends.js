@@ -18,6 +18,11 @@ let allFriends = [
     name: "Charlie",
     photo: "https://images.unsplash.com/photo-1544552866-d3ed42536cfd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80",
     scores: [5, 3, 2, 2, 4, 4, 3, 5, 4, 5]
+  },
+  {
+    name: "Jasper",
+    photo: "https://images.unsplash.com/photo-1452570053594-1b985d6ea890?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80",
+    scores: [3, 3, 3, 2, 2, 3, 4, 2, 3, 1]
   }
 ];
 
