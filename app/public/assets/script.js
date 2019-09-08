@@ -1,8 +1,7 @@
 let userName = "";
 let userPhoto = "";
 let userScores = [];
-let matchName = "";
-let matchPhoto = "";
+
 
 function validateForm() {
   let score = "";
@@ -19,36 +18,16 @@ function validateForm() {
   }
 };
 
-function compareScores(friends, newFriend) {
 
-  let difference = [];
-
-  for (let i = 0; i < friends.length - 1; i++) {
-    let scoreToCompare = 0;
-    for (let j = 0; j < friends[i].scores.length; j++) {
-      scoreToCompare += Math.abs(friends[i].scores[j] - newFriend.scores[j]);
-    };
-    difference.push(scoreToCompare);
-    // console.log(`difference: ${difference[i]}, user: ${friends[i].name}`);
-  };
-
-  const lowest = Math.min.apply(null, difference);
-  const matchIndex = difference.indexOf(lowest);
-  const match = friends[matchIndex];
-  matchName = match.name;
-  matchPhoto = match.photo;
-  // console.log(match);
-};
-
-function displayMatch() {
+function displayMatch(match) {
   $("#user-name").html(`${userName}'s best match is...`);
-  $("#match-name").html(`<p>${matchName}</p>`);
+  $("#match-name").html(`<p>${match.name}</p>`);
 
   //display the photo if there is (because link to photo field is optional!)
-  if (matchPhoto == "") {
+  if (match.photo == "") {
     $("#match-name").append(`<div><i class="far fa-smile my-icon"></i></div>`);
   } else {
-    $("#match-name").append(`<img src="${matchPhoto}" class="img-fluid my-image">`);
+    $("#match-name").append(`<img src="${match.photo}" class="img-fluid my-image">`);
   }
 
   //show the modal window
@@ -78,13 +57,10 @@ $("#submit").on("click", function (event) {
     };
 
     let currentURL = window.location.origin;
-    $.post(currentURL + "/api/friends", newFriend);
-
-    $.get(currentURL + "/api/friends")
-      .then(function (data) {
-        console.log(data);
-        compareScores(data, newFriend);
-        displayMatch();
+    $.post(currentURL + "/api/friends", newFriend)
+      .then(function (match) {
+        // console.log(match);
+        displayMatch(match);
       });
 
     //clear all fields
